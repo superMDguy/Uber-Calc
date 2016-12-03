@@ -19,20 +19,22 @@ body {
   right: 20%;
   height: 30%;
   padding: 10px;
-  font-size: 20px;
   overflow: scroll;
 }
 
 #equation {
   width: 80%;
-  height: 50%;
+  height: 100%;
   display: inline-block;
   outline: none;
+  
+  font-size: 2rem;
 }
 
 #solve {
   width: 20%;
-  height: 50%;
+  height: 20%;
+  font-size: 1rem;
   padding: 10px;
   float: right;
   display: none;
@@ -41,45 +43,46 @@ body {
 .numbers {
   width: 75%;
   height: 70%;
-  font-size: 0;
+  font-size: 0px;
 }
 
 .numbers button {
   background-color: #333333;
   color: #00FF00;
   width: calc(100%/3);
-  font-size: 20px;
   margin: 0 auto;
-  font-weight: bold;
+  font-size: 2rem;
   height: 25%;
   border: 1px solid #222222;
 }
 
 .numbers button:active {
   background-color: #222222;
-  -webkit-transition: all 0.2s ease-in-out;
-  -moz-transition: all 0.2s ease-in-out;
-  -ms-transition: all 0.2s ease-in-out;
-  -o-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
 }
 
 .right {
+  display: flex;
+  flex-flow: column nowrap;
   height: 70%;
   width: 25%;
   position: absolute;
   /* Stay in place */
   right: 0;
+    
   top: 30%;
   overflow-x: hidden;
   /* Disable horizontal scroll */
+}
+
+.right button {
+  font-size: 2em;
 }
 
 .right #calc {
   background-color: #4CAF50;
   color: white;
   width: 100%;
-  height : calc(100%/7);
+  height : calc(100%/8);
 }
 
 .right #calc:active {
@@ -90,7 +93,7 @@ body {
   background-color: #ff0000;
   color: white;
   width: 100%;
-  height : calc(100%/7);
+  height : calc(100%/8);
 }
 
 .right #clear:active {
@@ -98,8 +101,10 @@ body {
 }
 
 .right .ops {
-  height: calc(100%*5/7);
+  width: 100%;
+  height: calc(100%*5/8);
 }
+
 .right .ops button {
   background-color: #0099ff;
   color: white;
@@ -108,19 +113,33 @@ body {
   height: calc(100%/5);
 }
 
-.right .ops button:active {
+.right .ops button:active, .right .pare button:active {
   background-color: #0088ee;
+}
+
+.right .paren {
+  display: flex;
+  flex-flow: row nowrap;
+  align-content: center;
+  height: calc(100%/8);
+}
+
+.right .paren button {
+  white-space: nowrap;
+  background-color: #0099ff;
+  color: white;
+  font-weight: bold;
+  height: 100%;
+  width: 50%;
+  display: inline;
 }
 
 button {
   border: none;
   color: white;
   text-align: center;
-  padding: 1%;
   margin: 0 0 0 0;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
+  transition: all 0.3s ease 0s;
 }
 
 button:focus {
