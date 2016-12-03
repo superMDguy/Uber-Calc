@@ -1,13 +1,10 @@
 var recent = [];
+var Fraction = algebra.Fraction;
+var Expression = algebra.Expression;
+var Equation = algebra.Equation;
+var Complex = algebra.Complex;
 $(function() {
   "use strict";
-  
-  $("#equation").focus();
-
-  var Fraction = algebra.Fraction;
-  var Expression = algebra.Expression;
-  var Equation = algebra.Equation;
-  var Complex = algebra.Complex;
 
   $(document).bind("keypress", function(e) {
     if (e.keyCode == 13) {
@@ -19,7 +16,6 @@ $(function() {
 
 var parse = function(raw) {
   var parts = raw.match(/([0-9\.]+)([+\-\*\/\^])([0-9\.]+)/);
-  console.log(parts);
   return calc(parts[1], parts[2], parts[3]);
 };
 
@@ -40,31 +36,34 @@ var calc = function(num1, op, num2) {
   }
 };
 
-var update = function() {
+var calculate = function() {
   var raw = $("#equation").text().replace(/([a-z])([a-z])/g, '$1 * $2');
   var solveFor = $("#solve").val();
-  
+
   if (solveFor) {
-    var solved = recent.slice(-1).toString();
-    //solveFor(solveFor);
-    katex.render(algebra.toTex(solved), result);
+    var ans = recent.slice(-1)[0].solveFor(solveFor).toTex();
+    katex.render(solveFor + "=" + ans, result);
+    $("#solve").toggle();
     return;
   }
-  
+
   if (raw.includes("=")) {
-    $('#solve').toggle();
+
     vars = jQuery.unique(raw.replace(/[^a-zA-Z]/g, '').split(""));
-    
+
     $.each(vars, function(key, value) {
       $('#solve')
         .append($('<option>', {
-            value: key
+            value: value
           })
           .text(value));
     });
+
+    $('#solve').toggle();
   }
 
-  var expr = algebra.parse(raw);
+  var expr = algebra.parse($("#equation").text());
+
   recent.push(expr);
   katex.render(algebra.toTex(expr), result);
   //katex.render(parse(raw).toString(), result)
@@ -86,7 +85,7 @@ var backspace = function() {
 var clearText = function() {
   $("#equation").text("");
   $("#result").text("");
-  $("#equation").focus();
+  $("#solve").hide();
 };
 
 var copyResult = function() {
