@@ -16,11 +16,11 @@
 </head>
 
 <body>
-  <div class="top">
+ <div class="top">
   <div id="result" onclick="copyResult()"></div>
   <div contenteditable="true" id = "equation" onfocus="this.value = this.value;"></div>
   <select id="solve">
-    </select>
+  </select>
 </div>
 
 <div class="numbers">
@@ -43,7 +43,7 @@
 
 
 <div class="right">
-  <button onclick="update()" id="calc">Calculate</button>
+  <button onclick="calculate()" id="calc">Calculate</button>
   <button onclick="clearText()" id="clear">Clear</button>
   <div class="ops">
     <button id="+" onclick="add('+')">+</button>
@@ -52,7 +52,11 @@
     <button id="/" onclick="add('/')">÷</button>
     <button id="^" onclick="add('^')">^</button>
   </div>
+  <div class = "paren">
+    <button onclick="add('(')" id="(">(</button>
+    <button onclick="add(')')" id=")">)</button>
   </div>
+</div>
 
 </body>
 </html>
