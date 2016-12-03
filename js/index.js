@@ -6,10 +6,10 @@ var Complex = algebra.Complex;
 $(function() {
   "use strict";
 
-  $(document).bind("keypress", function(e) {
+  $(document).on("keyup", function(e) {
     if (e.keyCode == 13) {
       e.preventDefault();
-      $("#calc").trigger("click");
+      calculate();
     }
   });
 });
