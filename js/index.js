@@ -16,6 +16,7 @@ $(function() {
 
 var parse = function(raw) {
   var parts = raw.match(/([0-9\.]+)([+\-\*\/\^])([0-9\.]+)/);
+  
   return calc(parts[1], parts[2], parts[3]);
 };
 
@@ -41,15 +42,21 @@ var calculate = function() {
   var solveFor = $("#solve").val();
 
   if (solveFor) {
+    console.log(solveFor);
+    try {
     var ans = recent.slice(-1)[0].solveFor(solveFor).toTex();
+    } catch(err) { //Solution has multiple parts, can't be converted to TEX
+      var ans = recent.slice(-1)[0].solveFor(solveFor).toString();
+    }
     katex.render(solveFor + "=" + ans, result);
     $("#solve").toggle();
     return;
   }
 
   if (raw.includes("=")) {
-
-    vars = jQuery.unique(raw.replace(/[^a-zA-Z]/g, '').split(""));
+    var vars = raw.replace(/[^a-zA-Z]/g, '').split("").filter(function(elem, index, self) {
+    return index == self.indexOf(elem);
+    })
 
     $.each(vars, function(key, value) {
       $('#solve')
